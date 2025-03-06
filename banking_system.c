@@ -12,19 +12,19 @@ struct Account {
     float balance;
 };
 
-int isLoggedIn = 0; // Initialize isLoggedIn to 0 (false)
+int isLoggedIn = 0;
 struct Account currentUser;
 
-// Function to generate a random account number
+
 void generateAccNumber(char accNumber[]) {
     srand(time(0));
     for (int i = 0; i < MAX_ACC_LEN; i++) {
         accNumber[i] = '0' + (rand() % 10);
     }
-    accNumber[MAX_ACC_LEN] = '\0'; // Null-terminate the string
+    accNumber[MAX_ACC_LEN] = '\0'; 
 }
 
-// Function to create a new account
+
 void createAccount() {
     struct Account acc;
     FILE *fp;
@@ -32,7 +32,7 @@ void createAccount() {
     generateAccNumber(acc.accNumber);
 
     printf("Enter a password (max length = %d): ", MAX_PASS_LEN);
-    scanf("%s", acc.password); // No & needed for strings
+    scanf("%s", acc.password); 
 
     acc.balance = 0.0;
     fp = fopen("accounts.txt", "a");
@@ -47,7 +47,7 @@ void createAccount() {
     printf("Your account number is: {%s}\n", acc.accNumber);
 }
 
-// Function to log in to an account
+
 int loginAccount() {
     FILE *fp = fopen("accounts.txt", "r");
     char acc_num[MAX_ACC_LEN + 1], acc_pass[MAX_PASS_LEN + 1];
@@ -73,16 +73,16 @@ int loginAccount() {
     return 0;
 }
 
-// Function to check the account balance
+
 void checkBalance() {
     if (!isLoggedIn) {
         printf("Please log in first!\n");
         return;
     }
-    printf("Your current balance is $%.2f\n", currentUser.balance); // Corrected format specifier
+    printf("Your current balance is $%.2f\n", currentUser.balance); 
 }
 
-// Function to update the account details in the file
+
 void updateAccount() {
     struct Account acc;
     FILE *fp = fopen("accounts.txt", "r");
@@ -107,7 +107,7 @@ void updateAccount() {
     rename("temp.txt", "accounts.txt");
 }
 
-// Function to credit an amount to the account
+
 void creditAmount() {
     if (!isLoggedIn) {
         printf("Please log in first!\n");
@@ -115,7 +115,7 @@ void creditAmount() {
     }
     float amount;
     printf("Enter the amount you want to credit: ");
-    scanf("%f", &amount); // Corrected format specifier
+    scanf("%f", &amount); 
 
     if (amount <= 0) {
         printf("Please enter a valid amount!\n");
@@ -127,7 +127,7 @@ void creditAmount() {
     checkBalance();
 }
 
-// Function to debit an amount from the account
+
 void debitAmount() {
     if (!isLoggedIn) {
         printf("Please log in first!\n");
@@ -135,7 +135,7 @@ void debitAmount() {
     }
     float amount;
     printf("Enter the amount you want to debit: ");
-    scanf("%f", &amount); // Corrected format specifier
+    scanf("%f", &amount); 
 
     if (amount <= 0) {
         printf("Please enter a valid amount!\n");
@@ -150,7 +150,7 @@ void debitAmount() {
     checkBalance();
 }
 
-// Function to log out
+
 void logout() {
     if (!isLoggedIn) {
         printf("You are not logged in!\n");
